@@ -38,4 +38,11 @@ flutter_gen:
     enabled: false
 
 flutter:
-  uses-material-design: true
+  uses-material-design: false
+  fonts:
+    - family: LabGrotesque
+      fonts:
+        - asset: assets/fonts/LabGrotesque-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/LabGrotesque-Bold.ttf
+          weight: 700
