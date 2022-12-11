@@ -19,7 +19,7 @@ _$_Rocket _$$_RocketFromJson(Map<String, dynamic> json) => _$_Rocket(
       json['mass'] == null
           ? null
           : MassUnit.fromJson(json['mass'] as Map<String, dynamic>),
-      json['cost_per_launch'] as String?,
+      json['cost_per_launch'] as int?,
       json['first_flight'] == null
           ? null
           : DateTime.parse(json['first_flight'] as String),

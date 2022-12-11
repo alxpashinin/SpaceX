@@ -14,7 +14,7 @@ class Rocket with _$Rocket {
     LengthUnit? height,
     LengthUnit? diameter,
     MassUnit? mass,
-    @JsonKey(name: 'cost_per_launch') String? costPerLaunch,
+    @JsonKey(name: 'cost_per_launch') int? costPerLaunch,
     @JsonKey(name: 'first_flight') DateTime? firstFlight,
     @JsonKey(name: 'flickr_images') List<Uri>? images,
     @JsonKey(name: 'first_stage') RocketStage? firstStage,

@@ -27,7 +27,7 @@ mixin _$Rocket {
   LengthUnit? get diameter => throw _privateConstructorUsedError;
   MassUnit? get mass => throw _privateConstructorUsedError;
   @JsonKey(name: 'cost_per_launch')
-  String? get costPerLaunch => throw _privateConstructorUsedError;
+  int? get costPerLaunch => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_flight')
   DateTime? get firstFlight => throw _privateConstructorUsedError;
   @JsonKey(name: 'flickr_images')
@@ -54,7 +54,7 @@ abstract class $RocketCopyWith<$Res> {
       LengthUnit? height,
       LengthUnit? diameter,
       MassUnit? mass,
-      @JsonKey(name: 'cost_per_launch') String? costPerLaunch,
+      @JsonKey(name: 'cost_per_launch') int? costPerLaunch,
       @JsonKey(name: 'first_flight') DateTime? firstFlight,
       @JsonKey(name: 'flickr_images') List<Uri>? images,
       @JsonKey(name: 'first_stage') RocketStage? firstStage,
@@ -120,7 +120,7 @@ class _$RocketCopyWithImpl<$Res, $Val extends Rocket>
       costPerLaunch: freezed == costPerLaunch
           ? _value.costPerLaunch
           : costPerLaunch // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       firstFlight: freezed == firstFlight
           ? _value.firstFlight
           : firstFlight // ignore: cast_nullable_to_non_nullable
@@ -214,7 +214,7 @@ abstract class _$$_RocketCopyWith<$Res> implements $RocketCopyWith<$Res> {
       LengthUnit? height,
       LengthUnit? diameter,
       MassUnit? mass,
-      @JsonKey(name: 'cost_per_launch') String? costPerLaunch,
+      @JsonKey(name: 'cost_per_launch') int? costPerLaunch,
       @JsonKey(name: 'first_flight') DateTime? firstFlight,
       @JsonKey(name: 'flickr_images') List<Uri>? images,
       @JsonKey(name: 'first_stage') RocketStage? firstStage,
@@ -282,7 +282,7 @@ class __$$_RocketCopyWithImpl<$Res>
       freezed == costPerLaunch
           ? _value.costPerLaunch
           : costPerLaunch // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       freezed == firstFlight
           ? _value.firstFlight
           : firstFlight // ignore: cast_nullable_to_non_nullable
@@ -337,7 +337,7 @@ class _$_Rocket implements _Rocket {
   final MassUnit? mass;
   @override
   @JsonKey(name: 'cost_per_launch')
-  final String? costPerLaunch;
+  final int? costPerLaunch;
   @override
   @JsonKey(name: 'first_flight')
   final DateTime? firstFlight;
@@ -425,7 +425,7 @@ abstract class _Rocket implements Rocket {
           final LengthUnit? height,
           final LengthUnit? diameter,
           final MassUnit? mass,
-          @JsonKey(name: 'cost_per_launch') final String? costPerLaunch,
+          @JsonKey(name: 'cost_per_launch') final int? costPerLaunch,
           @JsonKey(name: 'first_flight') final DateTime? firstFlight,
           @JsonKey(name: 'flickr_images') final List<Uri>? images,
           @JsonKey(name: 'first_stage') final RocketStage? firstStage,
@@ -448,7 +448,7 @@ abstract class _Rocket implements Rocket {
   MassUnit? get mass;
   @override
   @JsonKey(name: 'cost_per_launch')
-  String? get costPerLaunch;
+  int? get costPerLaunch;
   @override
   @JsonKey(name: 'first_flight')
   DateTime? get firstFlight;
