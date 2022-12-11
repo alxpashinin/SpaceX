@@ -39,6 +39,8 @@ flutter_gen:
 
 flutter:
   uses-material-design: false
+  assets:
+    - assets/images/
   fonts:
     - family: LabGrotesque
       fonts:
