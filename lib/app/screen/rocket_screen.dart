@@ -1,0 +1,177 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:space_x/app/data/model/rocket.dart';
+import 'package:space_x/app/riverpod/rocket.dart';
+import 'package:space_x/common/static/app_colors.dart';
+import 'package:space_x/common/static/app_styles.dart';
+import 'package:space_x/gen/assets.gen.dart';
+
+class RocketScreen extends StatelessWidget {
+  const RocketScreen(this.rocket, {Key? key}) : super(key: key);
+
+  final Rocket rocket;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: CupertinoPageScaffold(
+        backgroundColor: CupertinoColors.black,
+        child: SingleChildScrollView(
+          child: Stack(children: [_buildImage(), _buildInformation()]),
+        ),
+      ),
+    );
+  }
+
+  Container _buildInformation() {
+    return Container(
+      margin: EdgeInsets.only(top: 0.4.sh),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32.r), topRight: Radius.circular(32.r)),
+        color: CupertinoColors.black,
+      ),
+      padding: EdgeInsets.only(left: 32.w, right: 32.w, top: 48.h),
+      child: Column(
+        children: [
+          _buildHeader(),
+          32.verticalSpace,
+          _UnitItems(rocket),
+          40.verticalSpace,
+          _buildRow('Первый запуск', '7 февраля, 2018'),
+          16.verticalSpace,
+          _buildRow('Страна', 'США'),
+          16.verticalSpace,
+          _buildRow('Стоимость запуска', '\$90 млн'),
+          40.verticalSpace,
+          _buildStage('ПЕРВАЯ СТУПЕНЬ', rocket.firstStage!),
+          40.verticalSpace,
+          _buildStage('ВТОРАЯ СТУПЕНЬ', rocket.secondStage!),
+          40.verticalSpace,
+          _buildLaunchesButton(),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _buildLaunchesButton() => SizedBox(
+        width: double.infinity,
+        child: CupertinoButton(
+            color: AppColors.launchesButton,
+            borderRadius: BorderRadius.circular(12.r),
+            child: Text(
+              'Посмотреть запуски',
+              style: AppStyles.boldStyle().copyWith(fontSize: 18.sp),
+            ),
+            onPressed: () {}),
+      );
+
+  Row _buildHeader() => Row(
+        children: [
+          Text(
+            rocket.name ?? '',
+            style: AppStyles.regularStyle().copyWith(fontSize: 24.sp),
+          ),
+          const Spacer(),
+          Assets.images.settings.svg(height: 36.h),
+        ],
+      );
+
+  Column _buildStage(String title, RocketStage stage) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(title, style: AppStyles.boldStyle().copyWith(fontSize: 16.sp)),
+        16.verticalSpace,
+        _buildRow('Количество двигателей', '27'),
+        16.verticalSpace,
+        _buildRow('Количество топлива', '308,6', 'ton'),
+        16.verticalSpace,
+        _buildRow('Время сгорания', '593', 'sec'),
+      ]);
+
+  Row _buildRow(String title, String content, [String? unit]) => Row(
+        children: [
+          Text(
+            title,
+            style: AppStyles.regularStyle()
+                .copyWith(fontSize: 16.sp, color: AppColors.title),
+          ),
+          const Spacer(),
+          Text(
+            content,
+            style: AppStyles.regularStyle().copyWith(fontSize: 16.sp),
+          ),
+          if (unit != null) ...[
+            8.horizontalSpace,
+            Text(
+              unit,
+              style: AppStyles.boldStyle()
+                  .copyWith(fontSize: 16.sp, color: AppColors.unit),
+            )
+          ]
+        ],
+      );
+
+  Image _buildImage() => Image.network(
+        rocket.randomImage ?? '',
+        fit: BoxFit.fill,
+        height: 0.45.sh,
+        width: 1.0.sw,
+      );
+}
+
+class _UnitItems extends ConsumerWidget {
+  const _UnitItems(this.rocket, {Key? key}) : super(key: key);
+
+  final Rocket rocket;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final heightUnit = ref.watch(heightProvider);
+    final diameterUnit = ref.watch(diameterProvider);
+    final massUnit = ref.watch(massProvider);
+    final payloadUnit = ref.watch(payloadProvider);
+
+    return SizedBox(
+      height: 100.h,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          _buildListTile(rocket.height?.selectedUnit(heightUnit).toString(),
+              'Высота, ${heightUnit.unitToString}'),
+          12.horizontalSpace,
+          _buildListTile(rocket.diameter?.selectedUnit(diameterUnit).toString(),
+              'Диаметр, ${diameterUnit.unitToString}'),
+          12.horizontalSpace,
+          _buildListTile(rocket.mass?.selectedUnit(massUnit).toString(),
+              'Масса, ${massUnit.unitToString}'),
+          12.horizontalSpace,
+          _buildListTile(rocket.payload?.selectedUnit(massUnit).toString(),
+              'Нагрузка, ${payloadUnit.unitToString}'),
+        ],
+      ),
+    );
+  }
+
+  Container _buildListTile(String? text, String? subText) => Container(
+      height: 100.h,
+      width: 110.h,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(32.r), color: AppColors.unitItem),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(text ?? '',
+                style: AppStyles.boldStyle().copyWith(fontSize: 16.sp)),
+            Text(
+              subText ?? '',
+              style: AppStyles.regularStyle().copyWith(
+                fontSize: 14.sp,
+                color: AppColors.unit,
+              ),
+            )
+          ],
+        ),
+      ));
+}
