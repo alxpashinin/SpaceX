@@ -785,8 +785,8 @@ class __$$_MassCopyWithImpl<$Res> extends _$MassCopyWithImpl<$Res, _$_Mass>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Mass implements _Mass {
-  _$_Mass(this.kg, this.lb);
+class _$_Mass extends _Mass {
+  _$_Mass(this.kg, this.lb) : super._();
 
   factory _$_Mass.fromJson(Map<String, dynamic> json) => _$$_MassFromJson(json);
 
@@ -827,8 +827,9 @@ class _$_Mass implements _Mass {
   }
 }
 
-abstract class _Mass implements Mass {
+abstract class _Mass extends Mass {
   factory _Mass(final double? kg, final double? lb) = _$_Mass;
+  _Mass._() : super._();
 
   factory _Mass.fromJson(Map<String, dynamic> json) = _$_Mass.fromJson;
 
@@ -929,8 +930,8 @@ class __$$_LengthCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Length implements _Length {
-  _$_Length(this.meters, this.feet);
+class _$_Length extends _Length {
+  _$_Length(this.meters, this.feet) : super._();
 
   factory _$_Length.fromJson(Map<String, dynamic> json) =>
       _$$_LengthFromJson(json);
@@ -972,8 +973,9 @@ class _$_Length implements _Length {
   }
 }
 
-abstract class _Length implements Length {
+abstract class _Length extends Length {
   factory _Length(final double? meters, final double? feet) = _$_Length;
+  _Length._() : super._();
 
   factory _Length.fromJson(Map<String, dynamic> json) = _$_Length.fromJson;
 

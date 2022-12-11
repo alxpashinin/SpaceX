@@ -19,9 +19,10 @@ _$_Rocket _$$_RocketFromJson(Map<String, dynamic> json) => _$_Rocket(
       json['mass'] == null
           ? null
           : Mass.fromJson(json['mass'] as Map<String, dynamic>),
-      json['payload'] == null
+      _readPayload(json, 'payload') == null
           ? null
-          : Mass.fromJson(json['payload'] as Map<String, dynamic>),
+          : Mass.fromJson(
+              _readPayload(json, 'payload') as Map<String, dynamic>),
       json['cost_per_launch'] as int?,
       json['first_flight'] == null
           ? null

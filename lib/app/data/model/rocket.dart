@@ -32,7 +32,7 @@ class Rocket with _$Rocket {
 }
 
 Object? _readPayload(Map<dynamic, dynamic> json, String key) =>
-    json['payload_weight'].first;
+    json['payload_weight'];
 
 @freezed
 class RocketStage with _$RocketStage {
@@ -47,21 +47,41 @@ class RocketStage with _$RocketStage {
 
 @freezed
 class Mass with _$Mass {
+  Mass._();
   factory Mass(double? kg, double? lb) = _Mass;
 
   factory Mass.fromJson(Map<String, Object?> json) => _$MassFromJson(json);
+
+  double? selectedUnit(MassUnit unit) {
+    switch (unit) {
+      case MassUnit.kg:
+        return kg;
+      case MassUnit.lb:
+        return lb;
+    }
+  }
 }
 
 @freezed
 class Length with _$Length {
+  Length._();
   factory Length(double? meters, double? feet) = _Length;
 
   factory Length.fromJson(Map<String, Object?> json) => _$LengthFromJson(json);
+
+  double? selectedUnit(LengthUnit unit) {
+    switch (unit) {
+      case LengthUnit.meters:
+        return meters;
+      case LengthUnit.feet:
+        return feet;
+    }
+  }
 }
 
 enum MassUnit { kg, lb }
 
-extension on MassUnit {
+extension MassString on MassUnit {
   String get unitToString {
     switch (this) {
       case MassUnit.kg:
@@ -74,7 +94,7 @@ extension on MassUnit {
 
 enum LengthUnit { meters, feet }
 
-extension on LengthUnit {
+extension LengthString on LengthUnit {
   String get unitToString {
     switch (this) {
       case LengthUnit.feet:
