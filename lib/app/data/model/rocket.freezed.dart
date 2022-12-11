@@ -23,15 +23,17 @@ mixin _$Rocket {
   String? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
-  LengthUnit? get height => throw _privateConstructorUsedError;
-  LengthUnit? get diameter => throw _privateConstructorUsedError;
-  MassUnit? get mass => throw _privateConstructorUsedError;
+  Length? get height => throw _privateConstructorUsedError;
+  Length? get diameter => throw _privateConstructorUsedError;
+  Mass? get mass => throw _privateConstructorUsedError;
+  @JsonKey(readValue: _readPayload)
+  Mass? get payload => throw _privateConstructorUsedError;
   @JsonKey(name: 'cost_per_launch')
   int? get costPerLaunch => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_flight')
   DateTime? get firstFlight => throw _privateConstructorUsedError;
   @JsonKey(name: 'flickr_images')
-  List<Uri>? get images => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_stage')
   RocketStage? get firstStage => throw _privateConstructorUsedError;
   @JsonKey(name: 'second_stage')
@@ -51,18 +53,20 @@ abstract class $RocketCopyWith<$Res> {
       {String? id,
       String? name,
       String? country,
-      LengthUnit? height,
-      LengthUnit? diameter,
-      MassUnit? mass,
+      Length? height,
+      Length? diameter,
+      Mass? mass,
+      @JsonKey(readValue: _readPayload) Mass? payload,
       @JsonKey(name: 'cost_per_launch') int? costPerLaunch,
       @JsonKey(name: 'first_flight') DateTime? firstFlight,
-      @JsonKey(name: 'flickr_images') List<Uri>? images,
+      @JsonKey(name: 'flickr_images') List<String>? images,
       @JsonKey(name: 'first_stage') RocketStage? firstStage,
       @JsonKey(name: 'second_stage') RocketStage? secondStage});
 
-  $LengthUnitCopyWith<$Res>? get height;
-  $LengthUnitCopyWith<$Res>? get diameter;
-  $MassUnitCopyWith<$Res>? get mass;
+  $LengthCopyWith<$Res>? get height;
+  $LengthCopyWith<$Res>? get diameter;
+  $MassCopyWith<$Res>? get mass;
+  $MassCopyWith<$Res>? get payload;
   $RocketStageCopyWith<$Res>? get firstStage;
   $RocketStageCopyWith<$Res>? get secondStage;
 }
@@ -86,6 +90,7 @@ class _$RocketCopyWithImpl<$Res, $Val extends Rocket>
     Object? height = freezed,
     Object? diameter = freezed,
     Object? mass = freezed,
+    Object? payload = freezed,
     Object? costPerLaunch = freezed,
     Object? firstFlight = freezed,
     Object? images = freezed,
@@ -108,15 +113,19 @@ class _$RocketCopyWithImpl<$Res, $Val extends Rocket>
       height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as LengthUnit?,
+              as Length?,
       diameter: freezed == diameter
           ? _value.diameter
           : diameter // ignore: cast_nullable_to_non_nullable
-              as LengthUnit?,
+              as Length?,
       mass: freezed == mass
           ? _value.mass
           : mass // ignore: cast_nullable_to_non_nullable
-              as MassUnit?,
+              as Mass?,
+      payload: freezed == payload
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as Mass?,
       costPerLaunch: freezed == costPerLaunch
           ? _value.costPerLaunch
           : costPerLaunch // ignore: cast_nullable_to_non_nullable
@@ -128,7 +137,7 @@ class _$RocketCopyWithImpl<$Res, $Val extends Rocket>
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<Uri>?,
+              as List<String>?,
       firstStage: freezed == firstStage
           ? _value.firstStage
           : firstStage // ignore: cast_nullable_to_non_nullable
@@ -142,37 +151,49 @@ class _$RocketCopyWithImpl<$Res, $Val extends Rocket>
 
   @override
   @pragma('vm:prefer-inline')
-  $LengthUnitCopyWith<$Res>? get height {
+  $LengthCopyWith<$Res>? get height {
     if (_value.height == null) {
       return null;
     }
 
-    return $LengthUnitCopyWith<$Res>(_value.height!, (value) {
+    return $LengthCopyWith<$Res>(_value.height!, (value) {
       return _then(_value.copyWith(height: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LengthUnitCopyWith<$Res>? get diameter {
+  $LengthCopyWith<$Res>? get diameter {
     if (_value.diameter == null) {
       return null;
     }
 
-    return $LengthUnitCopyWith<$Res>(_value.diameter!, (value) {
+    return $LengthCopyWith<$Res>(_value.diameter!, (value) {
       return _then(_value.copyWith(diameter: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $MassUnitCopyWith<$Res>? get mass {
+  $MassCopyWith<$Res>? get mass {
     if (_value.mass == null) {
       return null;
     }
 
-    return $MassUnitCopyWith<$Res>(_value.mass!, (value) {
+    return $MassCopyWith<$Res>(_value.mass!, (value) {
       return _then(_value.copyWith(mass: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MassCopyWith<$Res>? get payload {
+    if (_value.payload == null) {
+      return null;
+    }
+
+    return $MassCopyWith<$Res>(_value.payload!, (value) {
+      return _then(_value.copyWith(payload: value) as $Val);
     });
   }
 
@@ -211,21 +232,24 @@ abstract class _$$_RocketCopyWith<$Res> implements $RocketCopyWith<$Res> {
       {String? id,
       String? name,
       String? country,
-      LengthUnit? height,
-      LengthUnit? diameter,
-      MassUnit? mass,
+      Length? height,
+      Length? diameter,
+      Mass? mass,
+      @JsonKey(readValue: _readPayload) Mass? payload,
       @JsonKey(name: 'cost_per_launch') int? costPerLaunch,
       @JsonKey(name: 'first_flight') DateTime? firstFlight,
-      @JsonKey(name: 'flickr_images') List<Uri>? images,
+      @JsonKey(name: 'flickr_images') List<String>? images,
       @JsonKey(name: 'first_stage') RocketStage? firstStage,
       @JsonKey(name: 'second_stage') RocketStage? secondStage});
 
   @override
-  $LengthUnitCopyWith<$Res>? get height;
+  $LengthCopyWith<$Res>? get height;
   @override
-  $LengthUnitCopyWith<$Res>? get diameter;
+  $LengthCopyWith<$Res>? get diameter;
   @override
-  $MassUnitCopyWith<$Res>? get mass;
+  $MassCopyWith<$Res>? get mass;
+  @override
+  $MassCopyWith<$Res>? get payload;
   @override
   $RocketStageCopyWith<$Res>? get firstStage;
   @override
@@ -248,6 +272,7 @@ class __$$_RocketCopyWithImpl<$Res>
     Object? height = freezed,
     Object? diameter = freezed,
     Object? mass = freezed,
+    Object? payload = freezed,
     Object? costPerLaunch = freezed,
     Object? firstFlight = freezed,
     Object? images = freezed,
@@ -270,15 +295,19 @@ class __$$_RocketCopyWithImpl<$Res>
       freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as LengthUnit?,
+              as Length?,
       freezed == diameter
           ? _value.diameter
           : diameter // ignore: cast_nullable_to_non_nullable
-              as LengthUnit?,
+              as Length?,
       freezed == mass
           ? _value.mass
           : mass // ignore: cast_nullable_to_non_nullable
-              as MassUnit?,
+              as Mass?,
+      freezed == payload
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as Mass?,
       freezed == costPerLaunch
           ? _value.costPerLaunch
           : costPerLaunch // ignore: cast_nullable_to_non_nullable
@@ -290,7 +319,7 @@ class __$$_RocketCopyWithImpl<$Res>
       freezed == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<Uri>?,
+              as List<String>?,
       freezed == firstStage
           ? _value.firstStage
           : firstStage // ignore: cast_nullable_to_non_nullable
@@ -305,7 +334,7 @@ class __$$_RocketCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Rocket implements _Rocket {
+class _$_Rocket extends _Rocket {
   _$_Rocket(
       this.id,
       this.name,
@@ -313,12 +342,14 @@ class _$_Rocket implements _Rocket {
       this.height,
       this.diameter,
       this.mass,
+      @JsonKey(readValue: _readPayload) this.payload,
       @JsonKey(name: 'cost_per_launch') this.costPerLaunch,
       @JsonKey(name: 'first_flight') this.firstFlight,
-      @JsonKey(name: 'flickr_images') final List<Uri>? images,
+      @JsonKey(name: 'flickr_images') final List<String>? images,
       @JsonKey(name: 'first_stage') this.firstStage,
       @JsonKey(name: 'second_stage') this.secondStage)
-      : _images = images;
+      : _images = images,
+        super._();
 
   factory _$_Rocket.fromJson(Map<String, dynamic> json) =>
       _$$_RocketFromJson(json);
@@ -330,21 +361,24 @@ class _$_Rocket implements _Rocket {
   @override
   final String? country;
   @override
-  final LengthUnit? height;
+  final Length? height;
   @override
-  final LengthUnit? diameter;
+  final Length? diameter;
   @override
-  final MassUnit? mass;
+  final Mass? mass;
+  @override
+  @JsonKey(readValue: _readPayload)
+  final Mass? payload;
   @override
   @JsonKey(name: 'cost_per_launch')
   final int? costPerLaunch;
   @override
   @JsonKey(name: 'first_flight')
   final DateTime? firstFlight;
-  final List<Uri>? _images;
+  final List<String>? _images;
   @override
   @JsonKey(name: 'flickr_images')
-  List<Uri>? get images {
+  List<String>? get images {
     final value = _images;
     if (value == null) return null;
     if (_images is EqualUnmodifiableListView) return _images;
@@ -361,7 +395,7 @@ class _$_Rocket implements _Rocket {
 
   @override
   String toString() {
-    return 'Rocket(id: $id, name: $name, country: $country, height: $height, diameter: $diameter, mass: $mass, costPerLaunch: $costPerLaunch, firstFlight: $firstFlight, images: $images, firstStage: $firstStage, secondStage: $secondStage)';
+    return 'Rocket(id: $id, name: $name, country: $country, height: $height, diameter: $diameter, mass: $mass, payload: $payload, costPerLaunch: $costPerLaunch, firstFlight: $firstFlight, images: $images, firstStage: $firstStage, secondStage: $secondStage)';
   }
 
   @override
@@ -376,6 +410,7 @@ class _$_Rocket implements _Rocket {
             (identical(other.diameter, diameter) ||
                 other.diameter == diameter) &&
             (identical(other.mass, mass) || other.mass == mass) &&
+            (identical(other.payload, payload) || other.payload == payload) &&
             (identical(other.costPerLaunch, costPerLaunch) ||
                 other.costPerLaunch == costPerLaunch) &&
             (identical(other.firstFlight, firstFlight) ||
@@ -397,6 +432,7 @@ class _$_Rocket implements _Rocket {
       height,
       diameter,
       mass,
+      payload,
       costPerLaunch,
       firstFlight,
       const DeepCollectionEquality().hash(_images),
@@ -417,20 +453,22 @@ class _$_Rocket implements _Rocket {
   }
 }
 
-abstract class _Rocket implements Rocket {
+abstract class _Rocket extends Rocket {
   factory _Rocket(
           final String? id,
           final String? name,
           final String? country,
-          final LengthUnit? height,
-          final LengthUnit? diameter,
-          final MassUnit? mass,
+          final Length? height,
+          final Length? diameter,
+          final Mass? mass,
+          @JsonKey(readValue: _readPayload) final Mass? payload,
           @JsonKey(name: 'cost_per_launch') final int? costPerLaunch,
           @JsonKey(name: 'first_flight') final DateTime? firstFlight,
-          @JsonKey(name: 'flickr_images') final List<Uri>? images,
+          @JsonKey(name: 'flickr_images') final List<String>? images,
           @JsonKey(name: 'first_stage') final RocketStage? firstStage,
           @JsonKey(name: 'second_stage') final RocketStage? secondStage) =
       _$_Rocket;
+  _Rocket._() : super._();
 
   factory _Rocket.fromJson(Map<String, dynamic> json) = _$_Rocket.fromJson;
 
@@ -441,11 +479,14 @@ abstract class _Rocket implements Rocket {
   @override
   String? get country;
   @override
-  LengthUnit? get height;
+  Length? get height;
   @override
-  LengthUnit? get diameter;
+  Length? get diameter;
   @override
-  MassUnit? get mass;
+  Mass? get mass;
+  @override
+  @JsonKey(readValue: _readPayload)
+  Mass? get payload;
   @override
   @JsonKey(name: 'cost_per_launch')
   int? get costPerLaunch;
@@ -454,7 +495,7 @@ abstract class _Rocket implements Rocket {
   DateTime? get firstFlight;
   @override
   @JsonKey(name: 'flickr_images')
-  List<Uri>? get images;
+  List<String>? get images;
   @override
   @JsonKey(name: 'first_stage')
   RocketStage? get firstStage;
@@ -657,33 +698,32 @@ abstract class _RocketStage implements RocketStage {
       throw _privateConstructorUsedError;
 }
 
-MassUnit _$MassUnitFromJson(Map<String, dynamic> json) {
-  return _MassUnit.fromJson(json);
+Mass _$MassFromJson(Map<String, dynamic> json) {
+  return _Mass.fromJson(json);
 }
 
 /// @nodoc
-mixin _$MassUnit {
+mixin _$Mass {
   double? get kg => throw _privateConstructorUsedError;
   double? get lb => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MassUnitCopyWith<MassUnit> get copyWith =>
-      throw _privateConstructorUsedError;
+  $MassCopyWith<Mass> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MassUnitCopyWith<$Res> {
-  factory $MassUnitCopyWith(MassUnit value, $Res Function(MassUnit) then) =
-      _$MassUnitCopyWithImpl<$Res, MassUnit>;
+abstract class $MassCopyWith<$Res> {
+  factory $MassCopyWith(Mass value, $Res Function(Mass) then) =
+      _$MassCopyWithImpl<$Res, Mass>;
   @useResult
   $Res call({double? kg, double? lb});
 }
 
 /// @nodoc
-class _$MassUnitCopyWithImpl<$Res, $Val extends MassUnit>
-    implements $MassUnitCopyWith<$Res> {
-  _$MassUnitCopyWithImpl(this._value, this._then);
+class _$MassCopyWithImpl<$Res, $Val extends Mass>
+    implements $MassCopyWith<$Res> {
+  _$MassCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -710,21 +750,18 @@ class _$MassUnitCopyWithImpl<$Res, $Val extends MassUnit>
 }
 
 /// @nodoc
-abstract class _$$_MassUnitCopyWith<$Res> implements $MassUnitCopyWith<$Res> {
-  factory _$$_MassUnitCopyWith(
-          _$_MassUnit value, $Res Function(_$_MassUnit) then) =
-      __$$_MassUnitCopyWithImpl<$Res>;
+abstract class _$$_MassCopyWith<$Res> implements $MassCopyWith<$Res> {
+  factory _$$_MassCopyWith(_$_Mass value, $Res Function(_$_Mass) then) =
+      __$$_MassCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double? kg, double? lb});
 }
 
 /// @nodoc
-class __$$_MassUnitCopyWithImpl<$Res>
-    extends _$MassUnitCopyWithImpl<$Res, _$_MassUnit>
-    implements _$$_MassUnitCopyWith<$Res> {
-  __$$_MassUnitCopyWithImpl(
-      _$_MassUnit _value, $Res Function(_$_MassUnit) _then)
+class __$$_MassCopyWithImpl<$Res> extends _$MassCopyWithImpl<$Res, _$_Mass>
+    implements _$$_MassCopyWith<$Res> {
+  __$$_MassCopyWithImpl(_$_Mass _value, $Res Function(_$_Mass) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -733,7 +770,7 @@ class __$$_MassUnitCopyWithImpl<$Res>
     Object? kg = freezed,
     Object? lb = freezed,
   }) {
-    return _then(_$_MassUnit(
+    return _then(_$_Mass(
       freezed == kg
           ? _value.kg
           : kg // ignore: cast_nullable_to_non_nullable
@@ -748,11 +785,10 @@ class __$$_MassUnitCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MassUnit implements _MassUnit {
-  _$_MassUnit(this.kg, this.lb);
+class _$_Mass implements _Mass {
+  _$_Mass(this.kg, this.lb);
 
-  factory _$_MassUnit.fromJson(Map<String, dynamic> json) =>
-      _$$_MassUnitFromJson(json);
+  factory _$_Mass.fromJson(Map<String, dynamic> json) => _$$_MassFromJson(json);
 
   @override
   final double? kg;
@@ -761,14 +797,14 @@ class _$_MassUnit implements _MassUnit {
 
   @override
   String toString() {
-    return 'MassUnit(kg: $kg, lb: $lb)';
+    return 'Mass(kg: $kg, lb: $lb)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MassUnit &&
+            other is _$_Mass &&
             (identical(other.kg, kg) || other.kg == kg) &&
             (identical(other.lb, lb) || other.lb == lb));
   }
@@ -780,21 +816,21 @@ class _$_MassUnit implements _MassUnit {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MassUnitCopyWith<_$_MassUnit> get copyWith =>
-      __$$_MassUnitCopyWithImpl<_$_MassUnit>(this, _$identity);
+  _$$_MassCopyWith<_$_Mass> get copyWith =>
+      __$$_MassCopyWithImpl<_$_Mass>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MassUnitToJson(
+    return _$$_MassToJson(
       this,
     );
   }
 }
 
-abstract class _MassUnit implements MassUnit {
-  factory _MassUnit(final double? kg, final double? lb) = _$_MassUnit;
+abstract class _Mass implements Mass {
+  factory _Mass(final double? kg, final double? lb) = _$_Mass;
 
-  factory _MassUnit.fromJson(Map<String, dynamic> json) = _$_MassUnit.fromJson;
+  factory _Mass.fromJson(Map<String, dynamic> json) = _$_Mass.fromJson;
 
   @override
   double? get kg;
@@ -802,38 +838,35 @@ abstract class _MassUnit implements MassUnit {
   double? get lb;
   @override
   @JsonKey(ignore: true)
-  _$$_MassUnitCopyWith<_$_MassUnit> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_MassCopyWith<_$_Mass> get copyWith => throw _privateConstructorUsedError;
 }
 
-LengthUnit _$LengthUnitFromJson(Map<String, dynamic> json) {
-  return _LengthUnit.fromJson(json);
+Length _$LengthFromJson(Map<String, dynamic> json) {
+  return _Length.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LengthUnit {
+mixin _$Length {
   double? get meters => throw _privateConstructorUsedError;
   double? get feet => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LengthUnitCopyWith<LengthUnit> get copyWith =>
-      throw _privateConstructorUsedError;
+  $LengthCopyWith<Length> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LengthUnitCopyWith<$Res> {
-  factory $LengthUnitCopyWith(
-          LengthUnit value, $Res Function(LengthUnit) then) =
-      _$LengthUnitCopyWithImpl<$Res, LengthUnit>;
+abstract class $LengthCopyWith<$Res> {
+  factory $LengthCopyWith(Length value, $Res Function(Length) then) =
+      _$LengthCopyWithImpl<$Res, Length>;
   @useResult
   $Res call({double? meters, double? feet});
 }
 
 /// @nodoc
-class _$LengthUnitCopyWithImpl<$Res, $Val extends LengthUnit>
-    implements $LengthUnitCopyWith<$Res> {
-  _$LengthUnitCopyWithImpl(this._value, this._then);
+class _$LengthCopyWithImpl<$Res, $Val extends Length>
+    implements $LengthCopyWith<$Res> {
+  _$LengthCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -860,22 +893,19 @@ class _$LengthUnitCopyWithImpl<$Res, $Val extends LengthUnit>
 }
 
 /// @nodoc
-abstract class _$$_LengthUnitCopyWith<$Res>
-    implements $LengthUnitCopyWith<$Res> {
-  factory _$$_LengthUnitCopyWith(
-          _$_LengthUnit value, $Res Function(_$_LengthUnit) then) =
-      __$$_LengthUnitCopyWithImpl<$Res>;
+abstract class _$$_LengthCopyWith<$Res> implements $LengthCopyWith<$Res> {
+  factory _$$_LengthCopyWith(_$_Length value, $Res Function(_$_Length) then) =
+      __$$_LengthCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double? meters, double? feet});
 }
 
 /// @nodoc
-class __$$_LengthUnitCopyWithImpl<$Res>
-    extends _$LengthUnitCopyWithImpl<$Res, _$_LengthUnit>
-    implements _$$_LengthUnitCopyWith<$Res> {
-  __$$_LengthUnitCopyWithImpl(
-      _$_LengthUnit _value, $Res Function(_$_LengthUnit) _then)
+class __$$_LengthCopyWithImpl<$Res>
+    extends _$LengthCopyWithImpl<$Res, _$_Length>
+    implements _$$_LengthCopyWith<$Res> {
+  __$$_LengthCopyWithImpl(_$_Length _value, $Res Function(_$_Length) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -884,7 +914,7 @@ class __$$_LengthUnitCopyWithImpl<$Res>
     Object? meters = freezed,
     Object? feet = freezed,
   }) {
-    return _then(_$_LengthUnit(
+    return _then(_$_Length(
       freezed == meters
           ? _value.meters
           : meters // ignore: cast_nullable_to_non_nullable
@@ -899,11 +929,11 @@ class __$$_LengthUnitCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_LengthUnit implements _LengthUnit {
-  _$_LengthUnit(this.meters, this.feet);
+class _$_Length implements _Length {
+  _$_Length(this.meters, this.feet);
 
-  factory _$_LengthUnit.fromJson(Map<String, dynamic> json) =>
-      _$$_LengthUnitFromJson(json);
+  factory _$_Length.fromJson(Map<String, dynamic> json) =>
+      _$$_LengthFromJson(json);
 
   @override
   final double? meters;
@@ -912,14 +942,14 @@ class _$_LengthUnit implements _LengthUnit {
 
   @override
   String toString() {
-    return 'LengthUnit(meters: $meters, feet: $feet)';
+    return 'Length(meters: $meters, feet: $feet)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LengthUnit &&
+            other is _$_Length &&
             (identical(other.meters, meters) || other.meters == meters) &&
             (identical(other.feet, feet) || other.feet == feet));
   }
@@ -931,22 +961,21 @@ class _$_LengthUnit implements _LengthUnit {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LengthUnitCopyWith<_$_LengthUnit> get copyWith =>
-      __$$_LengthUnitCopyWithImpl<_$_LengthUnit>(this, _$identity);
+  _$$_LengthCopyWith<_$_Length> get copyWith =>
+      __$$_LengthCopyWithImpl<_$_Length>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LengthUnitToJson(
+    return _$$_LengthToJson(
       this,
     );
   }
 }
 
-abstract class _LengthUnit implements LengthUnit {
-  factory _LengthUnit(final double? meters, final double? feet) = _$_LengthUnit;
+abstract class _Length implements Length {
+  factory _Length(final double? meters, final double? feet) = _$_Length;
 
-  factory _LengthUnit.fromJson(Map<String, dynamic> json) =
-      _$_LengthUnit.fromJson;
+  factory _Length.fromJson(Map<String, dynamic> json) = _$_Length.fromJson;
 
   @override
   double? get meters;
@@ -954,6 +983,6 @@ abstract class _LengthUnit implements LengthUnit {
   double? get feet;
   @override
   @JsonKey(ignore: true)
-  _$$_LengthUnitCopyWith<_$_LengthUnit> get copyWith =>
+  _$$_LengthCopyWith<_$_Length> get copyWith =>
       throw _privateConstructorUsedError;
 }
