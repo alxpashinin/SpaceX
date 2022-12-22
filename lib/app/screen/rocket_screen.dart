@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:space_x/app/data/model/rocket.dart';
 import 'package:space_x/app/riverpod/rocket.dart';
+import 'package:space_x/app/screen/settings_screen.dart';
 import 'package:space_x/common/static/app_colors.dart';
 import 'package:space_x/common/static/app_styles.dart';
 import 'package:space_x/gen/assets.gen.dart';
@@ -39,11 +41,11 @@ class RocketScreen extends StatelessWidget {
           32.verticalSpace,
           _UnitItems(rocket),
           40.verticalSpace,
-          _buildRow('Первый запуск', '7 февраля, 2018'),
+          _buildRow('Первый запуск', rocket.firstFlightToString),
           16.verticalSpace,
-          _buildRow('Страна', 'США'),
+          _buildRow('Страна', rocket.countryToString),
           16.verticalSpace,
-          _buildRow('Стоимость запуска', '\$90 млн'),
+          _buildRow('Стоимость запуска', rocket.costPerLaunchToString),
           40.verticalSpace,
           _buildStage('ПЕРВАЯ СТУПЕНЬ', rocket.firstStage!),
           40.verticalSpace,
@@ -67,26 +69,33 @@ class RocketScreen extends StatelessWidget {
             onPressed: () {}),
       );
 
-  Row _buildHeader() => Row(
-        children: [
-          Text(
-            rocket.name ?? '',
-            style: AppStyles.regularStyle().copyWith(fontSize: 24.sp),
-          ),
-          const Spacer(),
-          Assets.images.settings.svg(height: 36.h),
-        ],
-      );
+  Builder _buildHeader() => Builder(
+      builder: (context) => Row(
+            children: [
+              Text(
+                rocket.name ?? '',
+                style: AppStyles.regularStyle().copyWith(fontSize: 24.sp),
+              ),
+              const Spacer(),
+              CupertinoButton(
+                  onPressed: () => showCupertinoModalBottomSheet(
+                      expand: true,
+                      context: context,
+                      builder: (context) => const SettingsScreen()),
+                  padding: EdgeInsets.zero,
+                  child: Assets.images.settings.svg(height: 38.h)),
+            ],
+          ));
 
   Column _buildStage(String title, RocketStage stage) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(title, style: AppStyles.boldStyle().copyWith(fontSize: 16.sp)),
         16.verticalSpace,
-        _buildRow('Количество двигателей', '27'),
+        _buildRow('Количество двигателей', stage.numberOfEngines.toString()),
         16.verticalSpace,
-        _buildRow('Количество топлива', '308,6', 'ton'),
+        _buildRow('Количество топлива', stage.fuelAmountTons.toString(), 'ton'),
         16.verticalSpace,
-        _buildRow('Время сгорания', '593', 'sec'),
+        _buildRow('Время сгорания', stage.burnTimeSec.toString(), 'sec'),
       ]);
 
   Row _buildRow(String title, String content, [String? unit]) => Row(
@@ -146,7 +155,7 @@ class _UnitItems extends ConsumerWidget {
           _buildListTile(rocket.mass?.selectedUnit(massUnit).toString(),
               'Масса, ${massUnit.unitToString}'),
           12.horizontalSpace,
-          _buildListTile(rocket.payload?.selectedUnit(massUnit).toString(),
+          _buildListTile(rocket.payload?.selectedUnit(payloadUnit).toString(),
               'Нагрузка, ${payloadUnit.unitToString}'),
         ],
       ),
@@ -154,8 +163,7 @@ class _UnitItems extends ConsumerWidget {
   }
 
   Container _buildListTile(String? text, String? subText) => Container(
-      height: 100.h,
-      width: 110.h,
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 24.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32.r), color: AppColors.unitItem),
       child: Center(
