@@ -62,7 +62,7 @@ _$_RocketStage _$$_RocketStageFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_RocketStageToJson(_$_RocketStage instance) =>
     <String, dynamic>{
-      'engines': instance.engines,
+      'engines': instance.numberOfEngines,
       'fuel_amount_tons': instance.fuelAmountTons,
       'burn_time_sec': instance.burnTimeSec,
     };

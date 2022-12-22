@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'rocket.freezed.dart';
 part 'rocket.g.dart';
@@ -28,16 +29,33 @@ class Rocket with _$Rocket {
 
   String? get randomImage => images?[Random().nextInt(images?.length ?? 0)];
 
+  String get firstFlightToString =>
+      DateFormat('d MMMM, yyyy', 'ru_RU').format(firstFlight!);
+
+  String get countryToString {
+    switch (country) {
+      case 'Republic of the Marshall Islands':
+        return 'Маршалловы острова';
+      case 'United States':
+        return 'США';
+      default:
+        throw Error();
+    }
+  }
+
+  String get costPerLaunchToString =>
+      '\$${(costPerLaunch! / pow(10, 6)).toString()} млн';
+
   factory Rocket.fromJson(Map<String, Object?> json) => _$RocketFromJson(json);
 }
 
 Object? _readPayload(Map<dynamic, dynamic> json, String key) =>
-    json['payload_weight'];
+    json['payload_weights'].first;
 
 @freezed
 class RocketStage with _$RocketStage {
   factory RocketStage(
-      int? engines,
+      @JsonKey(name: 'engines') int? numberOfEngines,
       @JsonKey(name: 'fuel_amount_tons') double? fuelAmountTons,
       @JsonKey(name: 'burn_time_sec') double? burnTimeSec) = _RocketStage;
 

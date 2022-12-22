@@ -514,7 +514,8 @@ RocketStage _$RocketStageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RocketStage {
-  int? get engines => throw _privateConstructorUsedError;
+  @JsonKey(name: 'engines')
+  int? get numberOfEngines => throw _privateConstructorUsedError;
   @JsonKey(name: 'fuel_amount_tons')
   double? get fuelAmountTons => throw _privateConstructorUsedError;
   @JsonKey(name: 'burn_time_sec')
@@ -533,7 +534,7 @@ abstract class $RocketStageCopyWith<$Res> {
       _$RocketStageCopyWithImpl<$Res, RocketStage>;
   @useResult
   $Res call(
-      {int? engines,
+      {@JsonKey(name: 'engines') int? numberOfEngines,
       @JsonKey(name: 'fuel_amount_tons') double? fuelAmountTons,
       @JsonKey(name: 'burn_time_sec') double? burnTimeSec});
 }
@@ -551,14 +552,14 @@ class _$RocketStageCopyWithImpl<$Res, $Val extends RocketStage>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? engines = freezed,
+    Object? numberOfEngines = freezed,
     Object? fuelAmountTons = freezed,
     Object? burnTimeSec = freezed,
   }) {
     return _then(_value.copyWith(
-      engines: freezed == engines
-          ? _value.engines
-          : engines // ignore: cast_nullable_to_non_nullable
+      numberOfEngines: freezed == numberOfEngines
+          ? _value.numberOfEngines
+          : numberOfEngines // ignore: cast_nullable_to_non_nullable
               as int?,
       fuelAmountTons: freezed == fuelAmountTons
           ? _value.fuelAmountTons
@@ -581,7 +582,7 @@ abstract class _$$_RocketStageCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? engines,
+      {@JsonKey(name: 'engines') int? numberOfEngines,
       @JsonKey(name: 'fuel_amount_tons') double? fuelAmountTons,
       @JsonKey(name: 'burn_time_sec') double? burnTimeSec});
 }
@@ -597,14 +598,14 @@ class __$$_RocketStageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? engines = freezed,
+    Object? numberOfEngines = freezed,
     Object? fuelAmountTons = freezed,
     Object? burnTimeSec = freezed,
   }) {
     return _then(_$_RocketStage(
-      freezed == engines
-          ? _value.engines
-          : engines // ignore: cast_nullable_to_non_nullable
+      freezed == numberOfEngines
+          ? _value.numberOfEngines
+          : numberOfEngines // ignore: cast_nullable_to_non_nullable
               as int?,
       freezed == fuelAmountTons
           ? _value.fuelAmountTons
@@ -622,7 +623,7 @@ class __$$_RocketStageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RocketStage implements _RocketStage {
   _$_RocketStage(
-      this.engines,
+      @JsonKey(name: 'engines') this.numberOfEngines,
       @JsonKey(name: 'fuel_amount_tons') this.fuelAmountTons,
       @JsonKey(name: 'burn_time_sec') this.burnTimeSec);
 
@@ -630,7 +631,8 @@ class _$_RocketStage implements _RocketStage {
       _$$_RocketStageFromJson(json);
 
   @override
-  final int? engines;
+  @JsonKey(name: 'engines')
+  final int? numberOfEngines;
   @override
   @JsonKey(name: 'fuel_amount_tons')
   final double? fuelAmountTons;
@@ -640,7 +642,7 @@ class _$_RocketStage implements _RocketStage {
 
   @override
   String toString() {
-    return 'RocketStage(engines: $engines, fuelAmountTons: $fuelAmountTons, burnTimeSec: $burnTimeSec)';
+    return 'RocketStage(numberOfEngines: $numberOfEngines, fuelAmountTons: $fuelAmountTons, burnTimeSec: $burnTimeSec)';
   }
 
   @override
@@ -648,7 +650,8 @@ class _$_RocketStage implements _RocketStage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RocketStage &&
-            (identical(other.engines, engines) || other.engines == engines) &&
+            (identical(other.numberOfEngines, numberOfEngines) ||
+                other.numberOfEngines == numberOfEngines) &&
             (identical(other.fuelAmountTons, fuelAmountTons) ||
                 other.fuelAmountTons == fuelAmountTons) &&
             (identical(other.burnTimeSec, burnTimeSec) ||
@@ -658,7 +661,7 @@ class _$_RocketStage implements _RocketStage {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, engines, fuelAmountTons, burnTimeSec);
+      Object.hash(runtimeType, numberOfEngines, fuelAmountTons, burnTimeSec);
 
   @JsonKey(ignore: true)
   @override
@@ -676,7 +679,7 @@ class _$_RocketStage implements _RocketStage {
 
 abstract class _RocketStage implements RocketStage {
   factory _RocketStage(
-          final int? engines,
+          @JsonKey(name: 'engines') final int? numberOfEngines,
           @JsonKey(name: 'fuel_amount_tons') final double? fuelAmountTons,
           @JsonKey(name: 'burn_time_sec') final double? burnTimeSec) =
       _$_RocketStage;
@@ -685,7 +688,8 @@ abstract class _RocketStage implements RocketStage {
       _$_RocketStage.fromJson;
 
   @override
-  int? get engines;
+  @JsonKey(name: 'engines')
+  int? get numberOfEngines;
   @override
   @JsonKey(name: 'fuel_amount_tons')
   double? get fuelAmountTons;
