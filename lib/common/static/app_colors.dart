@@ -6,4 +6,5 @@ class AppColors {
   static const launchesButton = Color.fromRGBO(33, 33, 33, 1);
   static const unitItem = Color.fromRGBO(33, 33, 33, 1);
   static const settingsScreenBackground = Color.fromRGBO(18, 18, 18, 1);
+  static const pageIndicator = Color.fromRGBO(18, 18, 18, 1);
 }
