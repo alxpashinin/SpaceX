@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:space_x/app/data/model/rocket.dart';
 import 'package:space_x/app/riverpod/rocket.dart';
+import 'package:space_x/app/screen/launches_screen.dart';
 import 'package:space_x/app/screen/settings_screen.dart';
 import 'package:space_x/common/static/app_colors.dart';
 import 'package:space_x/common/static/app_styles.dart';
@@ -16,12 +17,10 @@ class RocketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: CupertinoPageScaffold(
-        backgroundColor: CupertinoColors.black,
-        child: SingleChildScrollView(
-          child: Stack(children: [_buildImage(), _buildInformation()]),
-        ),
+    return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.black,
+      child: SingleChildScrollView(
+        child: Stack(children: [_buildImage(), _buildInformation()]),
       ),
     );
   }
@@ -52,22 +51,28 @@ class RocketScreen extends StatelessWidget {
           _buildStage('ВТОРАЯ СТУПЕНЬ', rocket.secondStage!),
           40.verticalSpace,
           _buildLaunchesButton(),
+          SizedBox(height: 0.1.sh),
         ],
       ),
     );
   }
 
-  SizedBox _buildLaunchesButton() => SizedBox(
-        width: double.infinity,
-        child: CupertinoButton(
-            color: AppColors.launchesButton,
-            borderRadius: BorderRadius.circular(12.r),
-            child: Text(
-              'Посмотреть запуски',
-              style: AppStyles.boldStyle().copyWith(fontSize: 18.sp),
-            ),
-            onPressed: () {}),
-      );
+  Builder _buildLaunchesButton() => Builder(builder: (context) {
+        return SizedBox(
+          width: double.infinity,
+          child: CupertinoButton(
+              color: AppColors.launchesButton,
+              borderRadius: BorderRadius.circular(12.r),
+              child: Text(
+                'Посмотреть запуски',
+                style: AppStyles.boldStyle().copyWith(fontSize: 18.sp),
+              ),
+              onPressed: () => Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => LaunchesScreen(rocket)))),
+        );
+      });
 
   Builder _buildHeader() => Builder(
       builder: (context) => Row(
@@ -136,27 +141,25 @@ class _UnitItems extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final heightUnit = ref.watch(heightProvider);
-    final diameterUnit = ref.watch(diameterProvider);
-    final massUnit = ref.watch(massProvider);
-    final payloadUnit = ref.watch(payloadProvider);
+    final units = ref.watch(unitsProvider);
 
     return SizedBox(
       height: 100.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _buildListTile(rocket.height?.selectedUnit(heightUnit).toString(),
-              'Высота, ${heightUnit.unitToString}'),
+          _buildListTile(rocket.height?.selectedUnit(units.height).toString(),
+              'Высота, ${units.height.unitToString}'),
           12.horizontalSpace,
-          _buildListTile(rocket.diameter?.selectedUnit(diameterUnit).toString(),
-              'Диаметр, ${diameterUnit.unitToString}'),
+          _buildListTile(
+              rocket.diameter?.selectedUnit(units.diameter).toString(),
+              'Диаметр, ${units.diameter.unitToString}'),
           12.horizontalSpace,
-          _buildListTile(rocket.mass?.selectedUnit(massUnit).toString(),
-              'Масса, ${massUnit.unitToString}'),
+          _buildListTile(rocket.mass?.selectedUnit(units.mass).toString(),
+              'Масса, ${units.mass.unitToString}'),
           12.horizontalSpace,
-          _buildListTile(rocket.payload?.selectedUnit(payloadUnit).toString(),
-              'Нагрузка, ${payloadUnit.unitToString}'),
+          _buildListTile(rocket.payload?.selectedUnit(units.payload).toString(),
+              'Нагрузка, ${units.payload.unitToString}'),
         ],
       ),
     );

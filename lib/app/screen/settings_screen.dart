@@ -46,28 +46,39 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ));
 
-  Wrap _buildBody(WidgetRef ref) => Wrap(
-        runSpacing: 40.h,
-        children: [
-          _buildLengthSegmentRow(
-              'Высота',
-              ref.watch(heightProvider),
-              (newValue) =>
-                  ref.read(heightProvider.notifier).state = newValue!),
-          _buildLengthSegmentRow(
-              'Диаметр',
-              ref.watch(diameterProvider),
-              (newValue) =>
-                  ref.read(diameterProvider.notifier).state = newValue!),
-          _buildMassSegmentRow('Масса', ref.watch(massProvider),
-              (newValue) => ref.read(massProvider.notifier).state = newValue!),
-          _buildMassSegmentRow(
-              'Полезная нагрузка',
-              ref.watch(payloadProvider),
-              (newValue) =>
-                  ref.read(payloadProvider.notifier).state = newValue!),
-        ],
-      );
+  Wrap _buildBody(WidgetRef ref) {
+    final units = ref.watch(unitsProvider);
+
+    return Wrap(
+      runSpacing: 40.h,
+      children: [
+        _buildLengthSegmentRow(
+            'Высота',
+            units.height,
+            (newValue) => ref
+                .read(unitsProvider.notifier)
+                .update(units..height = newValue!)),
+        _buildLengthSegmentRow(
+            'Диаметр',
+            units.diameter,
+            (newValue) => ref
+                .read(unitsProvider.notifier)
+                .update(units..diameter = newValue!)),
+        _buildMassSegmentRow(
+            'Масса',
+            units.mass,
+            (newValue) => ref
+                .read(unitsProvider.notifier)
+                .update(units..mass = newValue!)),
+        _buildMassSegmentRow(
+            'Полезная нагрузка',
+            units.payload,
+            (newValue) => ref
+                .read(unitsProvider.notifier)
+                .update(units..payload = newValue!)),
+      ],
+    );
+  }
 
   Row _buildLengthSegmentRow(
           String title, LengthUnit unit, Function(LengthUnit?) onChanged) =>
