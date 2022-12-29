@@ -8,10 +8,11 @@ class DbRepository implements IDbRepository {
   Units? getUnitsSync() => _databaseDS.getUnitsSync();
 
   @override
-  void putUnits({required Units units}) => _databaseDS.putUnits(units);
+  Future<void> putUnits({required Units units}) async =>
+      await _databaseDS.putUnits(units);
 }
 
 abstract class IDbRepository {
   Units? getUnitsSync();
-  void putUnits({required Units units});
+  Future<void> putUnits({required Units units});
 }
