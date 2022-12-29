@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:space_x/app/data/model/launch.dart';
 import 'package:space_x/app/data/model/rocket.dart';
 
 part 'space_ds.g.dart';
@@ -11,8 +12,13 @@ abstract class SpaceDataSource implements ISpaceDataSource {
   @override
   @GET('rockets')
   Future<List<Rocket>?> fetchRockets();
+
+  @override
+  @POST('launches/query')
+  Future<LaunchesResponse> fetchLaunches(@Body() LaunchesRequest request);
 }
 
 abstract class ISpaceDataSource {
   Future<List<Rocket>?> fetchRockets();
+  Future<LaunchesResponse> fetchLaunches(LaunchesRequest request);
 }
